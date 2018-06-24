@@ -1,0 +1,3 @@
+1. Allow the Generator to have spaces (create a space character)
+2. DEBUG all the getchar() functions. Very problematic. Poor programming. 
+3. Organise your files. Make utils.c and utils.h files. 
