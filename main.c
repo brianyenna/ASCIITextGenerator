@@ -271,6 +271,7 @@ void str_append(char s[], char c){
 
 void find_undefined_alpha(){
 	int i;
+	int num_undefined = 0;
 	char c;
 	char undefined_alpha[VOCABSIZE];
 
@@ -280,15 +281,21 @@ void find_undefined_alpha(){
 		if (!ascii_collection[i].user_defined_bool){
 			if (i<=25){
 				c = 'a' + i;
+				num_undefined++;
 				str_append(undefined_alpha, c);
 			} else {
 				c = 'A' + i - 26;
+				num_undefined++;
 				str_append(undefined_alpha, c);
 			}
 		}
 	}
-	printf("The following characters still do not have custom typefaces designed for them:\n");
-	printf("%s\n", undefined_alpha);
+	if (num_undefined){
+		printf("The following characters still do not have custom typefaces defined for them:\n");
+		printf("%s\n", undefined_alpha);
+	} else {
+		printf("All characters already have a custom typeface defined for them.\n");
+	}
 
 	// Gets rid of any trailing characters in STDIN
 	while ((c=getchar()) != '\n'){
