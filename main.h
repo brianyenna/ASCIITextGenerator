@@ -26,8 +26,9 @@ void get_ascii(char store[]);
 void add_record();
 void save_ascii_records(char* filename);
 void display_char();
-void safe_makefile(char* filename);
 void load_ascii_database(char* filename);
 void use_typeface();
-void str_append(char s[], char c);
 void find_undefined_alpha();
+
+void safe_makefile(char* filename);
+void str_append(char s[], char c);

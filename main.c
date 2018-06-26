@@ -8,6 +8,63 @@
 ascii_store ascii_collection[VOCABSIZE];
 ascii_store default_ascii;
 
+int main(){
+	int keepgoing = 1;
+	safe_makefile(FILENAME);
+	set_default_ascii(default_ascii.store);
+	
+	while (keepgoing){
+		printf("\nEnter a command");
+		printf("\n'l' = re(load) existing records,");
+		printf("\n'a' = add record to database,");
+		printf("\n'u' = generate ASCII art for word");
+		printf("\n'd' = display a single character,");
+		printf("\n'f' = find undefined characters,");
+		printf("\n's' = save records to database,");
+		printf("\n'q' = quit program");
+		printf("\n>>> ");
+		// printf("\nCommands:  'l' = (re)load existing records, a' = add record, 'u' = use typeface");
+		// printf("\n           'd' = display character, 'f' = find undefined characters");
+		// printf("\n           's' = save records, 'q' = quit program\n>>>");
+		
+		switch(tolower(getchar())){
+			case 'l':
+				printf("Loading existing records\n");
+				load_ascii_database(FILENAME);
+				break;
+			case 'f':
+				find_undefined_alpha();
+				break;
+			case 'a':
+				printf("Add record\n");
+				add_record();
+				break;
+			case 'd':
+				display_char();
+				break;
+			case 'q':
+				printf("Exiting program now\n");
+				keepgoing = 0;
+				break;
+			case 's':
+				printf("Saving records made thus far\n");
+				save_ascii_records(FILENAME);
+				break;
+			case 'u':
+				printf("Using typface\n");
+				use_typeface();
+				break;
+			case '\n':
+				break;
+			default:
+				printf("Invalid command\n");
+				break;
+		}
+	}
+	return 0;
+}
+
+
 void set_default_ascii(char store[]){
 	int i,j;
 
@@ -158,13 +215,6 @@ void display_char(){
 	getchar(); //Gets rid of \n character. DEBUGGING REQUIRED. 
 }
 
-void safe_makefile(char* filename){
-	FILE* file;
-	
-	file = fopen(filename, "ab");
-	fclose(file);
-}
-
 void load_ascii_database(char* filename){
 	FILE* file;
 	int numrecsread;
@@ -223,13 +273,6 @@ void use_typeface(){
 		}
 	}
 
-	// if (display_boolean){
-	// 	for (j=0; isalpha(array[j]); j++){ 
-	// 		k = map_char_to_array_index(array[j]);
-	// 		printf("%s", ascii_collection[k].store);
-	// 	} 
-	// } //For vertical display
-
 	if (display_boolean) {
 		for (j=0; j<i; j++){
 			k = map_char_to_array_index(array[j]);
@@ -260,13 +303,6 @@ void use_typeface(){
 		printf("%s\n", disp_array.line5);
 		printf("%s\n", disp_array.line6);
 	}
-
-}
-
-void str_append(char s[], char c){
-	int len = strlen(s);
-	s[len] = c;
-	s[len+1] = '\0';
 }
 
 void find_undefined_alpha(){
@@ -303,63 +339,15 @@ void find_undefined_alpha(){
 	}
 }
 
-
-
-
-int main(){
-	int keepgoing = 1;
-	safe_makefile(FILENAME);
-	set_default_ascii(default_ascii.store);
+void safe_makefile(char* filename){
+	FILE* file;
 	
-	while (keepgoing){
-		printf("\nEnter a command");
-		printf("\n'l' = re(load) existing records,");
-		printf("\n'a' = add record to database,");
-		printf("\n'u' = generate ASCII art for word");
-		printf("\n'd' = display a single character,");
-		printf("\n'f' = find undefined characters,");
-		printf("\n's' = save records to database,");
-		printf("\n'q' = quit program");
-		printf("\n>>> ");
-		// printf("\nCommands:  'l' = (re)load existing records, a' = add record, 'u' = use typeface");
-		// printf("\n           'd' = display character, 'f' = find undefined characters");
-		// printf("\n           's' = save records, 'q' = quit program\n>>>");
-		
-		switch(tolower(getchar())){
-			case 'l':
-				printf("Loading existing records\n");
-				load_ascii_database(FILENAME);
-				break;
-			case 'f':
-				find_undefined_alpha();
-				break;
-			case 'a':
-				printf("Add record\n");
-				add_record();
-				break;
-			case 'd':
-				display_char();
-				break;
-			case 'q':
-				printf("Exiting program now\n");
-				keepgoing = 0;
-				break;
-			case 's':
-				printf("Saving records made thus far\n");
-				save_ascii_records(FILENAME);
-				break;
-			case 'u':
-				printf("Using typface\n");
-				use_typeface();
-				break;
-			case '\n':
-				break;
-			default:
-				printf("Invalid command\n");
-				break;
-		}
-		
-	}
-	
-	return 0;
+	file = fopen(filename, "ab");
+	fclose(file);
+}
+
+void str_append(char s[], char c){
+	int len = strlen(s);
+	s[len] = c;
+	s[len+1] = '\0';
 }
